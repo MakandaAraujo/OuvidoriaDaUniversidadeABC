@@ -1,0 +1,47 @@
+/* 	
+ ALUNOS: 
+ 
+ Luís Eduardo Silva Borges // Timóteo Makanda Araújo Ribeiro // 
+ Luiz Felipe // Luiz Matheus // Maria Eduarda Melo // Laerte Gomes
+ 
+ */
+
+package ouvidoria;											// Provavelmente vai ter que alterar o package para rodar
+
+import java.util.ArrayList; 										
+
+public class OuvidoriaUniversidade {
+
+	ArrayList<String> listaDeReclamacoes = new ArrayList<String>();
+
+	public String listarReclamacoes() {                      // MÉTODO DE LISTAR RECLAMAÇÕES
+		String reclamacao = "LISTA DE RECLAMAÇÕES";
+
+		for (int i = 0; i < tamanhoLista(); i++) {
+			reclamacao += "\n\nCódigo: " + (i + 1) + "\nReclamação: " + listaDeReclamacoes.get(i);
+		}
+
+		return reclamacao;
+	}
+
+	public void adicionarReclamacao(String addReclamacao) {    // MÉTODO DE ADICIONAR RECLAMAÇÕES
+		listaDeReclamacoes.add(addReclamacao);
+	}
+
+	public String codigoReclamacao(int codigoDaReclamacao) {    // MÉTODO DE PESQUISAR POR CÓDIGO
+		return listaDeReclamacoes.get(codigoDaReclamacao - 1);
+	}
+
+	public void deletarReclamacoes(int codigoDeRemocao) {    // MÉTODO DE EXCLUIR RECLAMAÇÃO POR CÓDIGO
+		listaDeReclamacoes.remove(codigoDeRemocao - 1);
+	}
+
+	public void alterarReclamacoes(int codigoDeAlteracao, String novaReclamacao) {   // MÉTODO PARA SUBSTITUIR ATRAVÉS DO CÓDIGO
+		listaDeReclamacoes.set(codigoDeAlteracao - 1, novaReclamacao);
+	}
+
+	public int tamanhoLista() { 							 // MÉTODO PRA VER A QUANTIDADE DE ELEMENTOS NA LISTA E TRATAR O CÓDIGO
+		return listaDeReclamacoes.size();
+	}
+
+}
