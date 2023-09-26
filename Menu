@@ -1,0 +1,103 @@
+/* 	
+ ALUNOS: 
+ 
+ Luís Eduardo Silva Borges // Timóteo Makanda Araújo Ribeiro // 
+ Luiz Felipe // Luiz Matheus // Maria Eduarda Melo // Laerte Gomes
+ 
+ */
+
+package ouvidoria;
+
+import javax.swing.JOptionPane;
+
+public class MenuFuncional {
+
+	public static void main(String[] args) {
+
+		OuvidoriaUniversidade instancia = new OuvidoriaUniversidade();
+		JOptionPane.showMessageDialog(null, "Bem-vindo a ouvidoria da Universidade ABC");
+		int opcao = 123;
+
+		while (opcao != 6) {
+			String opcaoSelecionadaStr = JOptionPane.showInputDialog(
+					" 1) Listar reclamações" + "\n 2) Adicionar reclamação" + "\n 3) Pesquisar reclamação por código"
+							+ "\n 4) Remover reclamação" + "\n 5) Alterar reclamação" + "\n 6) Sair");
+
+			if (opcaoSelecionadaStr == null || opcaoSelecionadaStr.trim().isEmpty()) {
+				break;
+				/* 
+				 	Usamos isso para não "quebrar" o código ao digitar algo vazio ("") ou então clicar no "X" para fechar o programa
+				 	ou então ao clicar na opção "cancelar".
+				*/
+			}
+
+			int opcaoSelecionada = Integer.parseInt(opcaoSelecionadaStr);
+			opcao = opcaoSelecionada;
+			if (opcao == 1) {
+				if (instancia.tamanhoLista() == 0) {
+					JOptionPane.showMessageDialog(null, "Lista de reclamações vazia!");
+				} else {
+					JOptionPane.showMessageDialog(null, instancia.listarReclamacoes());
+				}
+			} else if (opcao == 2) {
+				String reclamacao = JOptionPane.showInputDialog("Digite sua reclamação");
+				if (reclamacao.length() > 0) {
+					instancia.adicionarReclamacao(reclamacao);
+					JOptionPane.showMessageDialog(null, "A reclamação foi enviada com sucesso!");
+				} else {
+					JOptionPane.showMessageDialog(null, "Você não digitou nenhuma reclamação!");
+				}
+
+			} else if (opcao == 3) {
+				if (instancia.tamanhoLista() == 0) {
+					JOptionPane.showMessageDialog(null, "Lista de reclamações vazia!");
+				} else {
+					String codigoStr = JOptionPane
+							.showInputDialog("Digite o código da reclamação que você deseja pesquisar \n\n"
+									+ instancia.listarReclamacoes());
+					int codigo = Integer.parseInt(codigoStr);
+					if (codigo < 1 || codigo > instancia.tamanhoLista()) {
+						JOptionPane.showMessageDialog(null, "Código inválido!");
+					} else {
+						String printarReclamacaoEspecifica = instancia.codigoReclamacao(codigo);
+						JOptionPane.showMessageDialog(null, printarReclamacaoEspecifica);
+					}
+				}
+			} else if (opcao == 4) {
+				if (instancia.tamanhoLista() == 0) {
+					JOptionPane.showMessageDialog(null, "Lista de reclamações vazia!");
+				} else {
+					String codigoRemoverStr = JOptionPane
+							.showInputDialog("Digite o código da reclamação que você deseja excluir \n\n"
+									+ instancia.listarReclamacoes());
+					int codigoRemover = Integer.parseInt(codigoRemoverStr);
+					if (codigoRemover < 1 || codigoRemover > instancia.tamanhoLista()) {
+						JOptionPane.showMessageDialog(null, "Código inválido!");
+					} else {
+						instancia.deletarReclamacoes(codigoRemover);
+						JOptionPane.showMessageDialog(null, "Reclamação excluída com sucesso");
+					}
+				}
+			} else if (opcao == 5) {
+				if (instancia.tamanhoLista() == 0) {
+					JOptionPane.showMessageDialog(null, "Lista de reclamações vazia!");
+				} else {
+					String codigoAlterarStr = JOptionPane
+							.showInputDialog("Digite o código da reclamação que você deseja alterar \n\n"
+									+ instancia.listarReclamacoes());
+					int codigoAlterar = Integer.parseInt(codigoAlterarStr);
+					if (codigoAlterar < 1 || codigoAlterar > instancia.tamanhoLista()) {
+						JOptionPane.showMessageDialog(null, "Código inválido!");
+					} else {
+						String novaReclamacao = JOptionPane.showInputDialog("Digite a nova reclamação");
+						instancia.alterarReclamacoes(codigoAlterar, novaReclamacao);
+						JOptionPane.showMessageDialog(null, "Reclamação alterada com sucesso!");
+					}
+				}
+			} else if (opcao != 6) {
+				JOptionPane.showMessageDialog(null, "Opção inválida!");
+			}
+		}
+		JOptionPane.showMessageDialog(null, "Obrigado pela preferência!");
+	}
+}
